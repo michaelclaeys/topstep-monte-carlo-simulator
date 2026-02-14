@@ -11,8 +11,6 @@ Simulates every phase of the TopStep 50K account lifecycle with accurate rule en
 - **Back2Funded (B2F)** -- Expected value calculation for the $599 reactivation option
 - **Full Lifecycle** -- Combine attempts + XFA trading + payouts + blow + B2F decision, chained together with realistic cost accounting
 
-The simulator also includes an **ORB (Opening Range Breakout) analysis pipeline** for backtesting NQ and ES futures breakout strategies using historical data.
-
 ## Project Structure
 
 ```
@@ -27,9 +25,6 @@ topstep_sim/
     backtest_loader.py   # Load real trade data for bootstrap simulation
     main.py              # CLI interface
     tests/               # Unit tests for MLL, consistency, payouts, scaling
-
-    orb_local_pipeline.py   # ORB breakout analysis for NQ/ES futures
-    schwab_fetch.py         # Schwab API data fetcher for historical bars
 ```
 
 ## Quick Start
@@ -75,26 +70,6 @@ Lifecycle Results (100,000 sims):
   B2F Usage Rate:    41.3%
 ```
 
-## ORB Breakout Analysis
-
-The ORB pipeline evaluates Opening Range Breakout setups on NQ and ES futures using a two-boundary approach: stop at the opposite OR boundary, targets at 0.5R through 3R.
-
-```bash
-# Using free yfinance data (60-day limit)
-python orb_local_pipeline.py
-
-# Using Schwab API data (up to 2 years)
-python schwab_fetch.py          # Downloads NQ/ES 5-min bars to data/
-python orb_local_pipeline.py --csv
-```
-
-Features:
-- Per-symbol OR size filters (points-based)
-- R:R analysis at multiple target levels
-- Univariate feature significance testing (Mann-Whitney U, Cohen's d)
-- ML feature importance (Random Forest, permutation importance)
-- Regime analysis (VIX, day-of-week, OR size quintiles)
-
 ## Key Design Decisions
 
 - **Intraday MLL checks**: Breach is checked trade-by-trade within each day, not just at EOD
@@ -114,5 +89,3 @@ pytest tests/ -v
 - Python 3.10+
 - numpy, pandas
 - matplotlib (optional, for plots)
-- scikit-learn, scipy (for ORB analysis)
-- schwab-py (for Schwab API data fetching)
