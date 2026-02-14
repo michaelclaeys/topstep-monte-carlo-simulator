@@ -1,0 +1,17 @@
+# TopStep Strategy Tester - Dependencies
+
+# Core dependencies (required)
+numpy>=1.21.0
+pandas>=1.3.0
+
+# Visualization (optional but recommended)
+matplotlib>=3.4.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=3.0.0
+
+# Development (optional)
+# black>=22.0.0
+# flake8>=4.0.0
+# mypy>=0.950
